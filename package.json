@@ -1,0 +1,53 @@
+{
+  "name": "nodejs-starter",
+  "version": "1.0.0",
+  "description": "Nodejs starter",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon src/server.js",
+    "start": "NODE_ENV=production node src/server.js",
+    "start-department": "PORT=3001 node src/server.js",
+    "lint": "eslint --fix '**/*.js'"
+  },
+  "author": "Tien Nguyen",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nguyenminhtiend/Messi.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@godaddy/terminus": "^4.4.1",
+    "ajv": "6.12.6",
+    "ajv-keywords": "3.5.2 ",
+    "body-parser": "^1.19.0",
+    "cors": "2.8.5",
+    "express": "^4.17.1",
+    "glob": "^7.1.6",
+    "helmet": "4.2.0",
+    "moment": "2.29.1",
+    "mongoose": "5.10.13",
+    "morgan": "^1.10.0",
+    "winston": "3.3.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "dotenv": "^8.1.0",
+    "eslint": "^7.13.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
+    "nodemon": "2.0.2"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}

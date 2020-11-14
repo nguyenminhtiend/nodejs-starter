@@ -1,0 +1,36 @@
+version: '3.7'
+
+services:
+  nodejs-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: nodejs-starter
+    container_name: nodejs-starter
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/node-starter
+    ports:
+      - '3000:3000'
+    networks:
+      - nodejs-starter
+    volumes:
+      - ./src:/usr/app/src
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:4.1.8-xenial
+    environment:
+      - MONGO_INITDB_DATABASE=node-starter
+    ports:
+      - '27017:27017'
+    networks:
+      - nodejs-starter
+    volumes:
+      - mongo-data:/data/db
+networks:
+  nodejs-starter:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
