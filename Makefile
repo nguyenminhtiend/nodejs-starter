@@ -43,6 +43,9 @@ terraform-create-workspace: check-env
 	cd terraform && \
 		terraform workspace new $(ENV)
 
+terraform-version:
+	terraform --version
+
 terraform-first-init: check-env
 	cd terraform && \
 		terraform init \

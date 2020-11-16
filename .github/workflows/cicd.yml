@@ -27,7 +27,7 @@ jobs:
           unzip terraform_"$tf_version"_linux_amd64.zip
           sudo mv terraform /usr/local/bin/
       - name: Verify Terraform version
-          run: terraform --version
+        run: make terraform-version
       # - name: Use Node.js ${{ matrix.node-version }}
       #   uses: actions/setup-node@v1
       #   with:
