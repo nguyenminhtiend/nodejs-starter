@@ -5,8 +5,6 @@ const { logger } = require('../utils');
 
 const { MONGO_URI, NODE_ENV } = process.env;
 
-console.log(MONGO_URI);
-
 const connect = async () => {
   mongoose.set('debug', NODE_ENV === 'development');
   await mongoose.connect(MONGO_URI, {

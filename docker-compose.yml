@@ -4,7 +4,7 @@ services:
   nodejs-server:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: docker/Dockerfile.dev
     image: nodejs-starter
     container_name: nodejs-starter
     environment:

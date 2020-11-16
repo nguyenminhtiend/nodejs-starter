@@ -7,6 +7,7 @@
     "dev": "NODE_ENV=development nodemon src/server.js",
     "start": "NODE_ENV=production node src/server.js",
     "start-department": "PORT=3001 node src/server.js",
+    "test": "mocha test/setup \"test/**/*.spec.js\" --exit",
     "lint": "eslint --fix '**/*.js'"
   },
   "author": "Tien Nguyen",
@@ -31,13 +32,17 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "chai-like": "^1.1.1",
     "dotenv": "^8.1.0",
     "eslint": "^7.13.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
     "husky": "^4.2.3",
     "lint-staged": "^10.0.8",
-    "nodemon": "2.0.2"
+    "mocha": "^8.2.1",
+    "nodemon": "2.0.2",
+    "sinon": "^9.2.1"
   },
   "lint-staged": {
     "*.js": [

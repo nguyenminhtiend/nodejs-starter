@@ -8,16 +8,19 @@ ENV=staging
 DESIRED_COUNT=2
 
 docker-build:
-	docker build -f Dockerfile -t $(LOCAL_TAG) .
-
+	docker build -f docker/Dockerfile -t $(LOCAL_TAG) .
 docker-run:
-	docker run -e NODE_ENV=$(ENV) -p 3000:3000 $(LOCAL_TAG) \
-		
+	docker run -e NODE_ENV=$(ENV) -p 3000:3000 $(LOCAL_TAG)
 compose:
 	docker-compose up
-
 compose-build:
+	docker-compose -f docker/docker-compose.yml up
+
+compose-dev:
 	docker-compose up --build
+
+compose-test:
+	docker-compose -f docker-compose.yml -f docker-compose.test.yml up --build
 
 ecr-login:
 	aws ecr get-login-password --region $(REGION) | docker login --username AWS --password-stdin $(ACCOUNT_ID).dkr.ecr.$(REGION).amazonaws.com

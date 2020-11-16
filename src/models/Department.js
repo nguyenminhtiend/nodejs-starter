@@ -8,13 +8,13 @@ const Department = model(
         type: String,
         required: true,
         trim: true,
-        unique: true
-      }
+        unique: true,
+      },
     },
     {
-      timestamps: true
-    }
-  )
+      timestamps: true,
+    },
+  ),
 );
 
 module.exports = Department;
