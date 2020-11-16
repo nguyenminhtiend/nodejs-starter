@@ -1,10 +1,9 @@
 VERSION?=latest
-GITHUB_SHA?=latest
 LOCAL_TAG=nodejs-starter:$(VERSION)
 ACCOUNT_ID=621567429603
 REGION=ap-southeast-1
 CONTAINER_NAME=nodejs-starter
-REMOTE_TAG=$(ACCOUNT_ID).dkr.ecr.$(REGION).amazonaws.com/$(CONTAINER_NAME):$(GITHUB_SHA)
+REMOTE_TAG=$(ACCOUNT_ID).dkr.ecr.$(REGION).amazonaws.com/$(CONTAINER_NAME):$(VERSION)
 ENV=staging
 DESIRED_COUNT=1
 

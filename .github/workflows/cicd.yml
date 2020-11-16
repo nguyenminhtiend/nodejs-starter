@@ -35,8 +35,8 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          make docker-build
-          make docker-push
+          VERSION=${GITHUB_SHA::8} make docker-build
+          VERSION=${GITHUB_SHA::8} make docker-push
 
       - name: Verify Terraform version
         run: make terraform-version
