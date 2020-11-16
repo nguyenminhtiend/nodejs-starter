@@ -5,7 +5,7 @@ REGION=ap-southeast-1
 CONTAINER_NAME=nodejs-starter
 REMOTE_TAG=$(ACCOUNT_ID).dkr.ecr.$(REGION).amazonaws.com/$(CONTAINER_NAME):$(VERSION)
 ENV=staging
-DESIRED_COUNT=2
+DESIRED_COUNT=1
 
 docker-build:
 	docker build -f docker/Dockerfile -t $(LOCAL_TAG) .

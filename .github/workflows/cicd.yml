@@ -1,6 +1,10 @@
-name: Run tests
+name: Node.js CI CD
 
-on: [push]
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
 
 jobs:
   build:
@@ -14,17 +18,27 @@ jobs:
       - name: Git checkout
         uses: actions/checkout@v1
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Start MongoDB v${{ matrix.mongodb-version }}
-        uses: supercharge/mongodb-github-action@1.2.0
-        with:
-          mongodb-version: ${{ matrix.mongodb-version }}
-
-      - run: npm install
-      - run: npm test
+      - name: Install Terraform
         env:
-          MONGO_URI: ${{secrets.MONGO_URI}}
+          TERRAFORM_VERSION: '0.12.23'
+        run: |
+          tf_version=$TERRAFORM_VERSION
+          wget https://releases.hashicorp.com/terraform/"$tf_version"/terraform_"$tf_version"_linux_amd64.zip
+          unzip terraform_"$tf_version"_linux_amd64.zip
+          sudo mv terraform /usr/local/bin/
+      - name: Verify Terraform version
+          run: terraform --version
+      # - name: Use Node.js ${{ matrix.node-version }}
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: ${{ matrix.node-version }}
+
+      # - name: Start MongoDB v${{ matrix.mongodb-version }}
+      #   uses: supercharge/mongodb-github-action@1.2.0
+      #   with:
+      #     mongodb-version: ${{ matrix.mongodb-version }}
+
+      # - run: npm install
+      # - run: npm test
+      #   env:
+      #     MONGO_URI: ${{secrets.MONGO_URI}}
