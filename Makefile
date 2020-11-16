@@ -55,7 +55,7 @@ terraform-init: check-env
 	cd terraform && \
 		terraform workspace select $(ENV) && \
 		terraform init \
-		-var-file=development.tfvars
+		-var-file=$(ENV).tfvars
 
 terraform_action:
 	cd terraform && \
