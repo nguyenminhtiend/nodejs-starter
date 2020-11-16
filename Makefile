@@ -1,9 +1,10 @@
 VERSION?=latest
+GITHUB_SHA?=latest
 LOCAL_TAG=nodejs-starter:$(VERSION)
 ACCOUNT_ID=621567429603
 REGION=ap-southeast-1
 CONTAINER_NAME=nodejs-starter
-REMOTE_TAG=$(ACCOUNT_ID).dkr.ecr.$(REGION).amazonaws.com/$(CONTAINER_NAME):$(VERSION)
+REMOTE_TAG=$(ACCOUNT_ID).dkr.ecr.$(REGION).amazonaws.com/$(CONTAINER_NAME):$(GITHUB_SHA)
 ENV=staging
 DESIRED_COUNT=1
 
@@ -26,12 +27,12 @@ ecr-login:
 	aws ecr get-login-password --region $(REGION) | docker login --username AWS --password-stdin $(ACCOUNT_ID).dkr.ecr.$(REGION).amazonaws.com
 
 docker-push:
-	make ecr-login
 	docker tag $(LOCAL_TAG) $(REMOTE_TAG)
 	docker push $(REMOTE_TAG)
 
 docker-build-push:
 	make docker-build
+	make ecr-login
 	make docker-push
 
 check-env:
