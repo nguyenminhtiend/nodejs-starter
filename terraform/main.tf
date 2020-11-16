@@ -1,14 +1,14 @@
 provider "aws" {
-  region  = var.region
-  profile = "terraform"
+  region = var.region
+  # profile = "terraform"
 }
 
 terraform {
   backend "s3" {
-    bucket  = "nodejs-starter-artifacts"
-    key     = "terraform/terraform.tfstate"
-    region  = "ap-southeast-1"
-    profile = "terraform"
+    bucket = "nodejs-starter-artifacts"
+    key    = "terraform/terraform.tfstate"
+    region = "ap-southeast-1"
+    # profile = "terraform"
   }
 }
 # module "ecr" {
