@@ -76,7 +76,7 @@ terraform-destroy: check-env
 
 cicd: check-env
 	cd terraform && \
-		terraform workspace new $(ENV) \
+		terraform workspace new $(ENV) && \
 		terraform workspace select $(ENV) && \
 		terraform plan \
 		-target=module.ecs.aws_ecs_service.service \
