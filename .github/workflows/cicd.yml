@@ -45,8 +45,9 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: make terraform-init
-        run: VERSION=${GITHUB_SHA::8} make cicd
+        run: |
+          make terraform-init
+          VERSION=${GITHUB_SHA::8} make cicd
       # - name: Use Node.js ${{ matrix.node-version }}
       #   uses: actions/setup-node@v1
       #   with:
