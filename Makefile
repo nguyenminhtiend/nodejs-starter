@@ -46,16 +46,16 @@ terraform-create-workspace: check-env
 terraform-version:
 	terraform --version
 
-terraform-first-init: check-env
-	cd terraform && \
-		terraform init \
-		-var-file=development.tfvars
-
 terraform-init: check-env
 	cd terraform && \
-		terraform workspace select $(ENV) && \
 		terraform init \
 		-var-file=$(ENV).tfvars
+
+# terraform-init: check-env
+# 	cd terraform && \
+# 		terraform workspace select $(ENV) && \
+# 		terraform init \
+# 		-var-file=$(ENV).tfvars
 
 terraform_action:
 	cd terraform && \
@@ -76,6 +76,7 @@ terraform-destroy: check-env
 
 cicd: check-env
 	cd terraform && \
+		terraform workspace new $(ENV) \
 		terraform workspace select $(ENV) && \
 		terraform plan \
 		-target=module.ecs.aws_ecs_service.service \
@@ -84,5 +85,5 @@ cicd: check-env
 		-var-file=$(ENV).tfvars \
 		-var="image=$(REMOTE_TAG)" \
 		-var="desired_count=$(DESIRED_COUNT)"
-	cd terraform && \
-		terraform apply terraform_plan.out
+	# cd terraform && \
+	# 	terraform apply terraform_plan.out
