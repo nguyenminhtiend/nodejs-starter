@@ -1,6 +1,5 @@
 provider "aws" {
   region = var.region
-  # profile = "terraform"
 }
 
 terraform {
@@ -8,13 +7,8 @@ terraform {
     bucket = "nodejs-starter-artifacts"
     key    = "terraform/terraform.tfstate"
     region = "ap-southeast-1"
-    # profile = "terraform"
   }
 }
-# module "ecr" {
-#   source  = "./ecr"
-#   tags = var.tags
-# }
 
 module "vpc" {
   source = "./vpc"
@@ -49,5 +43,4 @@ module "ecs" {
   security_group = module.vpc.ecs_sg
   log_group      = var.log_group
   tags           = var.tags
-
 }
