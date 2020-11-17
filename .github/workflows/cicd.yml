@@ -18,6 +18,26 @@ jobs:
       - name: Git checkout
         uses: actions/checkout@v1
 
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Start MongoDB v${{ matrix.mongodb-version }}
+        uses: supercharge/mongodb-github-action@1.2.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
+
+      - name: Install dependencies
+        id: install-dependencies
+        run: npm install
+
+      - name: Run tests
+        id: run-tests
+        run: npm test
+        env:
+          MONGO_URI: ${{secrets.MONGO_URI}}
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -32,9 +52,6 @@ jobs:
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS.
           VERSION=${GITHUB_SHA::8} make docker-build
           VERSION=${GITHUB_SHA::8} make docker-push
 
@@ -48,17 +65,3 @@ jobs:
         run: |
           make terraform-init
           VERSION=${GITHUB_SHA::8} make cicd
-      # - name: Use Node.js ${{ matrix.node-version }}
-      #   uses: actions/setup-node@v1
-      #   with:
-      #     node-version: ${{ matrix.node-version }}
-
-      # - name: Start MongoDB v${{ matrix.mongodb-version }}
-      #   uses: supercharge/mongodb-github-action@1.2.0
-      #   with:
-      #     mongodb-version: ${{ matrix.mongodb-version }}
-
-      # - run: npm install
-      # - run: npm test
-      #   env:
-      #     MONGO_URI: ${{secrets.MONGO_URI}}
