@@ -16,14 +16,16 @@ resource "aws_ecs_task_definition" "task_definition" {
         "hostPort": 3000
       }
     ],
+    "secrets": [
+        {
+          "name": "MONGO_URI",
+          "valueFrom": "arn:aws:secretsmanager:ap-southeast-1:621567429603:secret:MONGO_URI-SdrBAW"
+        }
+    ],
     "environment": [
       {
         "name": "NODE_ENV",
         "value": "staging"
-      },
-      {
-        "name": "MONGO_URI",
-        "value": "mongodb+srv://messi:P@ssw0rd@messi-99mjq.mongodb.net/test?retryWrites=true&w=majority"
       }
     ],
     "logConfiguration": {
