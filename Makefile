@@ -51,12 +51,6 @@ terraform-init: check-env
 		terraform init \
 		-var-file=$(ENV).tfvars
 
-# terraform-init: check-env
-# 	cd terraform && \
-# 		terraform workspace select $(ENV) && \
-# 		terraform init \
-# 		-var-file=$(ENV).tfvars
-
 terraform_action:
 	cd terraform && \
 		terraform workspace select $(ENV) && \
@@ -84,5 +78,5 @@ cicd: check-env
 		-var-file=$(ENV).tfvars \
 		-var="image=$(REMOTE_TAG)" \
 		-var="desired_count=$(DESIRED_COUNT)"
-	# cd terraform && \
-	# 	terraform apply terraform_plan.out
+	cd terraform && \
+		terraform apply terraform_plan.out

@@ -3,7 +3,7 @@ const { User } = require('../../models');
 const getUsers = async () => {
   const users = await User.find().populate('department');
 
-  return { users };
+  return { usersss: users };
 };
 
 const getUserById = async (id) => {
